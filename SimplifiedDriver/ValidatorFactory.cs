@@ -9,7 +9,7 @@ namespace SimplifiedDriver
         {
             Validator validator = new BaseValidator();
             if (commandType == CommandTypeEnum.SCommand)
-                validator = new SCommandValidator(validator);
+                validator = new SoundCommandValidator(validator);
             return validator;
         }
     }

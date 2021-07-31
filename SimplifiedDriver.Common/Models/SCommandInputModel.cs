@@ -1,6 +1,6 @@
 ﻿namespace SimplifiedDriver.Common.Models
 {
-    public class SCommandInputModel : BaseCommandInputModel
+    public sealed class SCommandInputModel : BaseCommandInputModel
     {
         public SCommandInputModel(int frequency, int duration)
         {

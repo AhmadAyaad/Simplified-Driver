@@ -15,10 +15,15 @@ namespace SimplifiedDriver.Common.Helpers
                                             CommandTypeEnum.SCommand : 0;
         }
         /// <param name="packet">Entered packet by the device.</param>
-        public static string GetPacketParamter(string packet)
+        public static string GetPacketParameter(string packet)
         {
-            var packetPayLoad = packet.Split(":");
-            return packetPayLoad[1];
+            if (packet.Contains(':'))
+            {
+                int firstCharInPacket = 3;
+                var parameter = packet.Substring(firstCharInPacket, packet.Length - 5);
+                return parameter;
+            }
+            return null;
         }
         /// <param name="packet">Entered packet by the device.</param>
         /// <param name="packetAsciiCodeValues">Entered packet by the device after conversion.</param>

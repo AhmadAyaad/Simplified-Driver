@@ -7,38 +7,43 @@ namespace SimplifiedDriver.Common.Validation
 {
     public class BaseValidator : Validator
     {
-        public override bool IsASCIICharsInRange(string paramter)
+        public override bool IsASCIICharsInRange(string parameter)
         {
-            return paramter.ToCharArray().All(p => p >= START_ASCII_CODE_RANGE_VALUE && p <= END_ASCII_CODE_RANGE_VALUE);
+            return parameter.ToCharArray().All(p => p >= START_ASCII_CODE_RANGE_VALUE && p <= END_ASCII_CODE_RANGE_VALUE);
         }
-        public override bool IsASCIICodeValueAsExpected(byte byteASCIICodeValue, byte acutalASCIIValue)
+        public override bool IsASCIICodeValueAsExpected(byte byteASciiCodeValue, byte actualAsciiValue)
         {
-            return byteASCIICodeValue == acutalASCIIValue ? true : false;
+            return byteASciiCodeValue == actualAsciiValue;
         }
         public override bool IsExistingCommandType(CommandTypeEnum commandType)
         {
-            return (commandType != CommandTypeEnum.TCommand && commandType != CommandTypeEnum.SCommand) ? false : true;
+            return (commandType == CommandTypeEnum.TCommand || commandType == CommandTypeEnum.SCommand);
         }
 
-        public override bool Validate(byte[] packesAsciiCodeValues, string packet)
+        public override bool Validate(byte[] packetAsciiCodeValues, string packet)
         {
             //First Char(P)
-            if (IsASCIICodeValueAsExpected(packesAsciiCodeValues[0], P_CHAR_ASCII_CODE_VALUE))
+            if (IsASCIICodeValueAsExpected(packetAsciiCodeValues[0], P_CHAR_ASCII_CODE_VALUE))
             {
                 //Last Char(E)
-                if (IsASCIICodeValueAsExpected(packesAsciiCodeValues[packesAsciiCodeValues.Length - 1], E_CHAR_ASCII_CODE_VALUE))
+                if (IsASCIICodeValueAsExpected(packetAsciiCodeValues[packetAsciiCodeValues.Length - 1], E_CHAR_ASCII_CODE_VALUE))
                 {
                     //Last colon(:) in packet
-                    if (IsASCIICodeValueAsExpected(packesAsciiCodeValues[packesAsciiCodeValues.Length - 2], COLON_CHAR_ASCII_CODE_VALUE))
+                    if (IsASCIICodeValueAsExpected(packetAsciiCodeValues[packetAsciiCodeValues.Length - 2], COLON_CHAR_ASCII_CODE_VALUE))
                     {
                         //First colon(:) in packet
-                        if (IsASCIICodeValueAsExpected(packesAsciiCodeValues[2], COLON_CHAR_ASCII_CODE_VALUE))
+                        if (IsASCIICodeValueAsExpected(packetAsciiCodeValues[2], COLON_CHAR_ASCII_CODE_VALUE))
                         {
-                            var commandType = Helper.GetCommandType(packesAsciiCodeValues[1]);
+                            var commandType = Helper.GetCommandType(packetAsciiCodeValues[1]);
                             //See if command is existing
                             if (IsExistingCommandType(commandType))
-                                //Packet paramter
-                                return IsASCIICharsInRange(Helper.GetPacketParamter(packet));
+                            {
+                                //Packet parameter
+                                var parameter = Helper.GetPacketParameter(packet);
+                                if (parameter != null)
+                                    return IsASCIICharsInRange(parameter);
+
+                            }
                         }
                     }
                 }

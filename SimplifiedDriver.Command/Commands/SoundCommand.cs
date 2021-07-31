@@ -4,7 +4,7 @@ using System;
 
 namespace SimplifiedDriver.Command.Commands
 {
-    public class SCommand : ICommand
+    public class SoundCommand : ICommand
     {
         public void Execute(BaseCommandInputModel paramters)
         {

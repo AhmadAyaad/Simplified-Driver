@@ -8,7 +8,7 @@
         public const int START_ASCII_CODE_RANGE_VALUE = 32;
         public const int END_ASCII_CODE_RANGE_VALUE = 127;
         public const int LOWSET_FRENQUENCY_VALUE = 37;
-        public const int HIGHEST_FRENQUENCY_VALUE = 32767;
+        public const int HIGHEST_FREQUENCY_VALUE = 32767;
     }
 
 }

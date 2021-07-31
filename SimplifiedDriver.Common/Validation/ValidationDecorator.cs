@@ -9,13 +9,13 @@ namespace SimplifiedDriver.Common.Validation
         {
             Validator = validator;
         }
-        public override bool IsASCIICharsInRange(string paramter)
+        public override bool IsASCIICharsInRange(string parameter)
         {
-            return Validator.IsASCIICharsInRange(paramter);
+            return Validator.IsASCIICharsInRange(parameter);
         }
-        public override bool IsASCIICodeValueAsExpected(byte byteASCIICodeValue, byte acutalASCIIValue)
+        public override bool IsASCIICodeValueAsExpected(byte byteAsciiCodeValue, byte acutalAsciiValue)
         {
-            return Validator.IsASCIICodeValueAsExpected(byteASCIICodeValue, acutalASCIIValue);
+            return Validator.IsASCIICodeValueAsExpected(byteAsciiCodeValue, acutalAsciiValue);
         }
         public override bool Validate(byte[] packetAsciiCodeValues, string packet)
         {

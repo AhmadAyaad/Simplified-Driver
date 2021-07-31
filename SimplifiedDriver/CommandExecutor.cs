@@ -17,15 +17,19 @@ namespace SimplifiedDriver
             switch (commandType)
             {
                 case CommandTypeEnum.TCommand:
-                    command = new TCommand();
-                    var TCommandPacketParamter = Helper.GetPacketParamter(packet);
-                    command.Execute(new BaseCommandInputModel { Message = TCommandPacketParamter });
+                    command = new TextCommand();
+                    var textCommandPacketParamter = Helper.GetPacketParameter(packet);
+                    if (textCommandPacketParamter != null)
+                        command.Execute(new BaseCommandInputModel { Message = textCommandPacketParamter });
                     break;
                 case CommandTypeEnum.SCommand:
-                    command = new SCommand();
-                    var SCommandPacketParamter = Helper.GetPacketParamter(packet);
-                    var commandParamters = SCommandPacketParamter.Split(",");
-                    command.Execute(new SCommandInputModel(Convert.ToInt32(commandParamters[0]), Convert.ToInt32(commandParamters[1])));
+                    command = new SoundCommand();
+                    var soundCommandPacketParamter = Helper.GetPacketParameter(packet);
+                    if (soundCommandPacketParamter != null && soundCommandPacketParamter.Contains(','))
+                    {
+                        var commandParamters = soundCommandPacketParamter.Split(",");
+                        command.Execute(new SCommandInputModel(Convert.ToInt32(commandParamters[0]), Convert.ToInt32(commandParamters[1])));
+                    }
                     break;
                 default:
                     command = null;
